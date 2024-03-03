@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 public class HoleSaveDto {
     //TODO добавить проверку ошибок из stopSaveDto
 
-    Part part;
+    Integer part_id;
 
     double diameter;
 

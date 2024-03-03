@@ -9,10 +9,7 @@ import dto.HoleSaveDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,5 +29,12 @@ public class HoleApi {
             return holeMapper.toDto(Collections.singletonList(holeService.findById(id)));
         }
         return holeMapper.toDto(holeService.getAll());
+    }
+
+    @PostMapping
+    public HoleDto save(@RequestBody HoleSaveDto dto) {
+        Hole hole = holeMapper.fromDto(dto);
+        Hole save = holeService.save(hole);
+        return holeMapper.toDto(save);
     }
 }

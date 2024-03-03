@@ -2,6 +2,9 @@ package by.upmebel.upmecutfile.mapper;
 
 
 import by.upmebel.upmecutfile.model.Hole;
+import by.upmebel.upmecutfile.model.Part;
+import by.upmebel.upmecutfile.repository.PartRepository;
+import by.upmebel.upmecutfile.service.PartService;
 import dto.HoleDto;
 import dto.HoleSaveDto;
 import lombok.AllArgsConstructor;
@@ -13,10 +16,13 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class HoleMapper {
+    PartRepository partRepository;
 
     // Принимает DTO от контроллера и отдаёт Hole
     public Hole fromDto (HoleSaveDto dto) {
+        Part part = partRepository.getReferenceById(dto.getPart_id());
         return Hole.builder()
+                .part(part)
                 .diameter(dto.getDiameter())
                 .depth(dto.getDepth())
                 .drillEntrySpeed(dto.getDrillEntrySpeed())
@@ -37,6 +43,7 @@ public class HoleMapper {
     public HoleDto toDto(Hole hole) {
         return HoleDto.builder()
                 .holeId(hole.getId())
+                .partId(hole.getPart().getId())
                 .diameter(hole.getDiameter())
                 .depth(hole.getDepth())
                 .drillEntrySpeed(hole.getDrillEntrySpeed())

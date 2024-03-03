@@ -14,6 +14,8 @@ public class HoleDto {
 
     Integer holeId;
 
+    Integer partId;
+
     double diameter;
 
     double depth;
