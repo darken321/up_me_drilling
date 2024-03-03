@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PartService {
     private final PartRepository partRepository;
+    private final HoleRepository holeRepository;
 
     public List<Part> getAll() {
         return partRepository.findAll();
@@ -27,5 +28,11 @@ public class PartService {
 
     public Part save(Part part) {
         return partRepository.save(part);
+    }
+
+    public void delete(Integer partId) {
+        holeRepository.deleteHolesByPartId(partId);
+        partRepository.deleteById(partId);
+
     }
 }

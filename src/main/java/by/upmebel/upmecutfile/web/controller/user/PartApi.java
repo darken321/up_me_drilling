@@ -37,4 +37,9 @@ public class PartApi {
         Part save = partService.save(part);
         return partMapper.toDto(save);
     }
+
+    @DeleteMapping
+    public void delete(@RequestParam Integer id) {
+        partService.delete(id);
+    }
 }
