@@ -2,15 +2,14 @@ package by.upmebel.upmecutfile.web.controller.user;
 
 
 import by.upmebel.upmecutfile.mapper.PartMapper;
+import by.upmebel.upmecutfile.model.Part;
 import by.upmebel.upmecutfile.service.PartService;
 import dto.PartDto;
+import dto.PartSaveDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,5 +29,12 @@ public class PartApi {
             return partMapper.toDto(Collections.singletonList(partService.findById(id)));
         }
         return partMapper.toDto(partService.getAll());
+    }
+
+    @PostMapping
+    public PartDto save(@RequestBody PartSaveDto dto) {
+        Part part = partMapper.fromDto(dto);
+        Part save = partService.save(part);
+        return partMapper.toDto(save);
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class PopulateDB {
-    private final PartRepository furniturePartRepository;
+    private final PartRepository partRepository;
     private final HoleRepository holeRepository;
 
 
@@ -28,13 +28,13 @@ public class PopulateDB {
                     .l(i*1.5)
                     .b(18.0)
                     .build();
-            furniturePartRepository.save(furniturePart);
+            partRepository.save(furniturePart);
         }
 
         //Добавляю 3 отверстия
         Hole hole;
         hole = Hole.builder()
-                .part(furniturePartRepository.findById(2).orElseThrow())
+                .part(partRepository.findById(2).orElseThrow())
                 .coordinateH(0)
                 .coordinateL(15)
                 .coordinateB(9)
@@ -46,7 +46,7 @@ public class PopulateDB {
         holeRepository.save(hole);
 
         hole = Hole.builder()
-                .part(furniturePartRepository.findById(2).orElseThrow())
+                .part(partRepository.findById(2).orElseThrow())
                 .coordinateH(10)
                 .coordinateL(0)
                 .coordinateB(9)
@@ -58,7 +58,7 @@ public class PopulateDB {
         holeRepository.save(hole);
 
         hole = Hole.builder()
-                .part(furniturePartRepository.findById(5).orElseThrow())
+                .part(partRepository.findById(5).orElseThrow())
                 .coordinateH(0)
                 .coordinateL(15)
                 .coordinateB(9)

@@ -24,4 +24,8 @@ public class PartService {
     public Part findById(Integer id) {
         return partRepository.findById(id).orElseThrow();
     }
+
+    public Part save(Part part) {
+        return partRepository.save(part);
+    }
 }
