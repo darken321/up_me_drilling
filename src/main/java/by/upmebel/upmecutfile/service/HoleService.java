@@ -33,4 +33,8 @@ public class HoleService {
         }
         return holeRepository.save(hole);
     }
+
+    public void delete(Integer id) {
+        holeRepository.deleteById(id);
+    }
 }

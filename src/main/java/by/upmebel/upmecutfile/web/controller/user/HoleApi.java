@@ -37,4 +37,10 @@ public class HoleApi {
         Hole save = holeService.save(hole);
         return holeMapper.toDto(save);
     }
+
+    @DeleteMapping
+    public void delete(@RequestParam Integer id) {
+        holeService.delete(id);
+    }
+
 }
