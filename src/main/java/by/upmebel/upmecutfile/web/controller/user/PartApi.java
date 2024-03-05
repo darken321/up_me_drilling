@@ -23,14 +23,7 @@ public class PartApi {
     private final PartService partService;
     private final PartMapper partMapper;
 
-    @GetMapping
-    public List<PartDto> getByFilters(@RequestParam(required = false) Integer id) {
-        if (id != null) {
-            return partMapper.toDto(Collections.singletonList(partService.findById(id)));
-        }
-        return partMapper.toDto(partService.getAll());
-    }
-
+    //CREATE
     @PostMapping
     public PartDto save(@RequestBody PartSaveDto dto) {
         Part part = partMapper.fromDto(dto);
@@ -38,6 +31,18 @@ public class PartApi {
         return partMapper.toDto(save);
     }
 
+    //READ одна или все детали
+    @GetMapping
+    public List<PartDto> getByFilters(@RequestParam(required = false) Integer id) {
+        if (id != null) {
+            return partMapper.toDto(Collections.singletonList(partService.findById(id)));
+        }
+        return partMapper.toDto(partService.getAll());
+    }
+    //TODO сделать UPDATE
+
+
+    //DELETE
     @DeleteMapping
     public void delete(@RequestParam Integer id) {
         partService.delete(id);

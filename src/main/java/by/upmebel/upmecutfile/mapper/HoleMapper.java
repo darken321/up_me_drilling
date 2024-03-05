@@ -8,11 +8,12 @@ import by.upmebel.upmecutfile.service.PartService;
 import dto.HoleDto;
 import dto.HoleSaveDto;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
+@Slf4j
 @Component
 @AllArgsConstructor
 public class HoleMapper {
@@ -21,6 +22,11 @@ public class HoleMapper {
     // Принимает DTO от контроллера и отдаёт Hole
     public Hole fromDto (HoleSaveDto dto) {
         Part part = partRepository.getReferenceById(dto.getPart_id());
+        //Пройти циклом по всем параметрам, собрать их в добавки к координатам LBH
+        //Вынести метод обработки в сервис или туда где бизнес логика
+//
+        log.warn("pattern " + dto.getPattern());
+
         return Hole.builder()
                 .part(part)
                 .diameter(dto.getDiameter())
