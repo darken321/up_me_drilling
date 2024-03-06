@@ -5,6 +5,8 @@ import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.model.Part;
 import by.upmebel.upmecutfile.repository.HoleRepository;
 import by.upmebel.upmecutfile.repository.PartRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PartService {
     private final PartRepository partRepository;
-    private final HoleRepository holeRepository;
 
     public List<Part> getAll() {
         return partRepository.findAll();
@@ -31,8 +32,6 @@ public class PartService {
     }
 
     public void delete(Integer partId) {
-        holeRepository.deleteHolesByPartId(partId);
         partRepository.deleteById(partId);
-
     }
 }

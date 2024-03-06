@@ -3,8 +3,9 @@ package by.upmebel.upmecutfile.mapper;
 
 import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.model.Part;
-import by.upmebel.upmecutfile.projection.PartSizeInfo;
+import by.upmebel.upmecutfile.projection.PartSizeProjection;
 import by.upmebel.upmecutfile.repository.PartRepository;
+import by.upmebel.upmecutfile.service.PartService;
 import by.upmebel.upmecutfile.utils.PatternConverter;
 import dto.HoleDto;
 import dto.HoleSaveDto;
@@ -20,14 +21,15 @@ import java.util.List;
 public class HoleMapper {
     PartRepository partRepository;
     PatternConverter patternConverter;
+    PartService partService;
 
     // Принимает DTO от контроллера и отдаёт Hole
-    public Hole fromDto (HoleSaveDto dto) {
+    public Hole fromDto(HoleSaveDto dto) {
         Part part = partRepository.getReferenceById(dto.getPart_id());
-        Object sizes = partRepository.getSizesById(dto.getPart_id());
-        Double sizeL = (Double)((Object[]) sizes)[0];
-        Double sizeB = (Double)((Object[]) sizes)[1];
-        Double sizeH = (Double)((Object[]) sizes)[2];
+        PartSizeProjection sizes = partRepository.getSizesById(dto.getPart_id());
+        Double sizeL = sizes.getL();
+        Double sizeB = sizes.getB();
+        Double sizeH = sizes.getH();
 
         return Hole.builder()
                 .part(part)

@@ -17,20 +17,12 @@ public interface HoleRepository extends JpaRepository<Hole, Integer> {
      */
     @Query(value = """
             SELECT *
-            FROM holes
+            FROM hole
             WHERE part_id = :id
             """
             , nativeQuery = true)
     List<Hole> findPartHoles(@Param("id") Integer partId);
 
-    /**
-     * удаляет отверстия по номеру детали partId
-     * @param partId
-     */
-    @Transactional
-    @Modifying
-    @Query(value = "DELETE FROM holes WHERE part_id = :partIdParam", nativeQuery = true)
-    void deleteHolesByPartId(@Param("partIdParam") int partId);
 
     @EntityGraph(attributePaths = {"part"})
     Optional<Hole> findById(int id);
