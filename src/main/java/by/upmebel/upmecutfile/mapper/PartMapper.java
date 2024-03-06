@@ -23,9 +23,9 @@ public class PartMapper {
     // Принимает DTO от контроллера с API и отдаёт Part
     public Part fromDto (PartSaveDto dto) {
         return Part.builder()
-                .h(dto.getH())
                 .l(dto.getL())
                 .b(dto.getB())
+                .h(dto.getH())
                 .build();
     }
 
@@ -41,9 +41,9 @@ public class PartMapper {
         List<HoleDto> holes = holeMapper.toDto(holeRepository.findPartHoles(part.getId()));
         return PartDto.builder()
                 .id(part.getId())
-                .h(part.getH())
                 .l(part.getL())
                 .b(part.getB())
+                .h(part.getH())
                 .holes(holes)
                 .build();
     }

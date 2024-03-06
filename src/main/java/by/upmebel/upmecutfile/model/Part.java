@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Entity
 @Data
 @Builder
@@ -17,13 +19,13 @@ public class Part {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @Column(name = "h")
-    double h;
-
     @Column(name = "l")
     double l;
 
     @Column(name = "b")
     double b;
+
+    @Column(name = "h")
+    double h;
 
 }

@@ -3,8 +3,9 @@ package by.upmebel.upmecutfile.mapper;
 
 import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.model.Part;
+import by.upmebel.upmecutfile.projection.PartSizeInfo;
 import by.upmebel.upmecutfile.repository.PartRepository;
-import by.upmebel.upmecutfile.service.PartService;
+import by.upmebel.upmecutfile.utils.PatternConverter;
 import dto.HoleDto;
 import dto.HoleSaveDto;
 import lombok.AllArgsConstructor;
@@ -18,14 +19,15 @@ import java.util.List;
 @AllArgsConstructor
 public class HoleMapper {
     PartRepository partRepository;
+    PatternConverter patternConverter;
 
     // Принимает DTO от контроллера и отдаёт Hole
     public Hole fromDto (HoleSaveDto dto) {
         Part part = partRepository.getReferenceById(dto.getPart_id());
-        //Пройти циклом по всем параметрам, собрать их в добавки к координатам LBH
-        //Вынести метод обработки в сервис или туда где бизнес логика
-//
-        log.warn("pattern " + dto.getPattern());
+        Object sizes = partRepository.getSizesById(dto.getPart_id());
+        Double sizeL = (Double)((Object[]) sizes)[0];
+        Double sizeB = (Double)((Object[]) sizes)[1];
+        Double sizeH = (Double)((Object[]) sizes)[2];
 
         return Hole.builder()
                 .part(part)
@@ -33,9 +35,9 @@ public class HoleMapper {
                 .depth(dto.getDepth())
                 .drillEntrySpeed(dto.getDrillEntrySpeed())
                 .drillExitSpeed(dto.getDrillExitSpeed())
-                .coordinateH(dto.getCoordinateH())
-                .coordinateL(dto.getCoordinateL())
-                .coordinateB(dto.getCoordinateB())
+                .coordinateL(patternConverter.convert(dto.getLPatterns(),sizeL,sizeB,sizeH))
+                .coordinateB(patternConverter.convert(dto.getBPatterns(),sizeL,sizeB,sizeH))
+                .coordinateH(patternConverter.convert(dto.getHPatterns(),sizeL,sizeB,sizeH))
                 .build();
     }
 
@@ -54,9 +56,9 @@ public class HoleMapper {
                 .depth(hole.getDepth())
                 .drillEntrySpeed(hole.getDrillEntrySpeed())
                 .drillExitSpeed(hole.getDrillExitSpeed())
-                .coordinateH(hole.getCoordinateH())
                 .coordinateL(hole.getCoordinateL())
                 .coordinateB(hole.getCoordinateB())
+                .coordinateH(hole.getCoordinateH())
                 .build();
     }
 

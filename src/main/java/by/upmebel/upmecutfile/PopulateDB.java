@@ -24,9 +24,9 @@ public class PopulateDB {
 
         for (int i = 20; i <= 60; i+=10) {
             furniturePart = Part.builder()
-                    .h(i)
                     .l(i*1.5)
                     .b(18.0)
+                    .h(i)
                     .build();
             partRepository.save(furniturePart);
         }
@@ -35,9 +35,9 @@ public class PopulateDB {
         Hole hole;
         hole = Hole.builder()
                 .part(partRepository.findById(2).orElseThrow())
-                .coordinateH(0)
                 .coordinateL(15)
                 .coordinateB(9)
+                .coordinateH(0)
                 .depth(10)
                 .diameter(6)
                 .drillEntrySpeed(5)
@@ -47,9 +47,9 @@ public class PopulateDB {
 
         hole = Hole.builder()
                 .part(partRepository.findById(2).orElseThrow())
-                .coordinateH(10)
                 .coordinateL(0)
                 .coordinateB(9)
+                .coordinateH(10)
                 .depth(20)
                 .diameter(5)
                 .drillEntrySpeed(5)
@@ -59,9 +59,9 @@ public class PopulateDB {
 
         hole = Hole.builder()
                 .part(partRepository.findById(5).orElseThrow())
-                .coordinateH(0)
                 .coordinateL(15)
                 .coordinateB(9)
+                .coordinateH(0)
                 .depth(22)
                 .diameter(4)
                 .drillEntrySpeed(5)

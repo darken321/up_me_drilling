@@ -3,7 +3,7 @@ package dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Map;
+import java.util.List;
 
 @Data
 @Builder
@@ -23,40 +23,8 @@ public class HoleSaveDto {
 
     double drillExitSpeed;
 
-    double coordinateL;
+    List<Pattern> lPatterns;
+    List<Pattern> bPatterns;
+    List<Pattern> hPatterns;
 
-    double coordinateB;
-
-    double coordinateH;
-
-    Pattern pattern;
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @FieldDefaults(level = AccessLevel.PRIVATE)
-    public static class Pattern {
-        Map<String, Double> parameters;
-        String operation;
-    }
 }
-//Привер Json для этой структуры данных:
-//{
-//    "part_id": "1",
-//    "diameter": "1",
-//    "depth": "2",
-//    "drillEntrySpeed": "3",
-//    "drillExitSpeed": "4",
-//    "coordinateX": "5",
-//    "coordinateY": "6",
-//    "coordinateZ": "7",
-//    "pattern": {
-//        "parameters": {
-//            "L": 2,
-//            "B": 4,
-//            "H": 0.5
-//        },
-//        "operation": "+-*"
-//     }
-//}

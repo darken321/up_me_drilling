@@ -14,11 +14,11 @@ public class PartDto {
 
     Integer id;
 
-    double h;
-
     double l;
 
     double b;
+
+    double h;
 
     List<HoleDto> holes;
 }
