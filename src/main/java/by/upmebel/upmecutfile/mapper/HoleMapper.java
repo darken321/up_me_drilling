@@ -1,9 +1,9 @@
 package by.upmebel.upmecutfile.mapper;
 
 
+import by.upmebel.upmecutfile.model.Coordinates;
 import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.model.Part;
-import by.upmebel.upmecutfile.projection.PartSizeProjection;
 import by.upmebel.upmecutfile.repository.PartRepository;
 import by.upmebel.upmecutfile.service.PartService;
 import by.upmebel.upmecutfile.utils.PatternConverter;
@@ -23,13 +23,8 @@ public class HoleMapper {
     PatternConverter patternConverter;
     PartService partService;
 
-    // Принимает DTO от контроллера и отдаёт Hole
-    public Hole fromDto(HoleSaveDto dto) {
+    public Hole fromDto(HoleSaveDto dto, Coordinates coordinates) {
         Part part = partRepository.getReferenceById(dto.getPart_id());
-        PartSizeProjection sizes = partRepository.getSizesById(dto.getPart_id());
-        Double sizeL = sizes.getL();
-        Double sizeB = sizes.getB();
-        Double sizeH = sizes.getH();
 
         return Hole.builder()
                 .part(part)
@@ -37,18 +32,18 @@ public class HoleMapper {
                 .depth(dto.getDepth())
                 .drillEntrySpeed(dto.getDrillEntrySpeed())
                 .drillExitSpeed(dto.getDrillExitSpeed())
-                .coordinateL(patternConverter.convert(dto.getLPatterns(),sizeL,sizeB,sizeH))
-                .coordinateB(patternConverter.convert(dto.getBPatterns(),sizeL,sizeB,sizeH))
-                .coordinateH(patternConverter.convert(dto.getHPatterns(),sizeL,sizeB,sizeH))
+                .coordinateL(coordinates.getL())
+                .coordinateB(coordinates.getB())
+                .coordinateH(coordinates.getH())
                 .build();
     }
 
     // Принимает пачку DTO от контроллера и отдаёт пачку Hole
-    public List<Hole> fromDto(List<HoleSaveDto> dtoList) {
-        return dtoList.stream()
-                .map(this::fromDto)
-                .toList();
-    }
+//    public List<Hole> fromDto(List<HoleSaveDto> dtoList) {
+//        return dtoList.stream()
+//                .map(this::fromDto)
+//                .toList();
+//    }
 
     public HoleDto toDto(Hole hole) {
         return HoleDto.builder()

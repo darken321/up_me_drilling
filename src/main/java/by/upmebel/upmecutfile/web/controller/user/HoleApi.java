@@ -2,8 +2,12 @@ package by.upmebel.upmecutfile.web.controller.user;
 
 
 import by.upmebel.upmecutfile.mapper.HoleMapper;
+import by.upmebel.upmecutfile.model.Coordinates;
 import by.upmebel.upmecutfile.model.Hole;
+import by.upmebel.upmecutfile.projection.PartSizeProjection;
+import by.upmebel.upmecutfile.repository.PartRepository;
 import by.upmebel.upmecutfile.service.HoleService;
+import by.upmebel.upmecutfile.utils.PatternConverter;
 import dto.HoleDto;
 import dto.HoleSaveDto;
 import lombok.AllArgsConstructor;
@@ -22,11 +26,22 @@ import java.util.List;
 public class HoleApi {
     private final HoleService holeService;
     private final HoleMapper holeMapper;
+    PartRepository partRepository;
+    PatternConverter patternConverter;
+
+
 
     //CREATE
     @PostMapping
     public HoleDto save(@RequestBody HoleSaveDto dto) {
-        Hole hole = holeMapper.fromDto(dto);
+        PartSizeProjection sizes = partRepository.getSizesById(dto.getPart_id());
+
+        Coordinates coordinates = new Coordinates();
+        coordinates.setL(patternConverter.convert(dto.getLPatterns(),sizes));
+        coordinates.setB(patternConverter.convert(dto.getBPatterns(),sizes));
+        coordinates.setH(patternConverter.convert(dto.getHPatterns(),sizes));
+
+        Hole hole = holeMapper.fromDto(dto, coordinates);
 
         Hole save = holeService.save(hole);
 
