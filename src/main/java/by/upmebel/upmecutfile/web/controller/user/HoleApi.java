@@ -27,7 +27,9 @@ public class HoleApi {
     @PostMapping
     public HoleDto save(@RequestBody HoleSaveDto dto) {
         Hole hole = holeMapper.fromDto(dto);
+
         Hole save = holeService.save(hole);
+
         return holeMapper.toDto(save);
     }
 
@@ -49,3 +51,27 @@ public class HoleApi {
     }
 
 }
+/*
+Тело Post запроса имеет вид:
+{
+        "part_id": "3",
+        "diameter": "10",
+        "depth": "5",
+        "drillEntrySpeed": "100",
+        "drillExitSpeed": "50",
+        "lPatterns": [
+        {"variable": "L", "operator": "/", "value": 2},
+        {"variable": "L", "operator": "/", "value": 1},
+        {"variable": "H", "operator": "-", "value": 1},
+        {"variable": "", "operator": "", "value": 100}
+        ],
+        "bPatterns": [
+        {"variable": "B", "operator": "*", "value": 2},
+        {"variable": "H", "operator": "-", "value": 1}
+        ],
+        "hPatterns": [
+        {"variable": "H", "operator": "-", "value": 1},
+        {"variable": "", "operator": "", "value": 30}
+        ]
+        }
+*/
