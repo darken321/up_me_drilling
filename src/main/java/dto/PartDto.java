@@ -12,7 +12,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PartDto {
 
-    Integer id;
+    int id;
 
     double l;
 

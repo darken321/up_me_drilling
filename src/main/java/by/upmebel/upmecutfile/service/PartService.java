@@ -1,12 +1,9 @@
 package by.upmebel.upmecutfile.service;
 
 
-import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.model.Part;
-import by.upmebel.upmecutfile.repository.HoleRepository;
 import by.upmebel.upmecutfile.repository.PartRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,6 +16,10 @@ import java.util.List;
 public class PartService {
     private final PartRepository partRepository;
 
+    public Part save(Part part) {
+        return partRepository.save(part);
+    }
+
     public List<Part> getAll() {
         return partRepository.findAll();
     }
@@ -27,8 +28,11 @@ public class PartService {
         return partRepository.findById(id).orElseThrow();
     }
 
-    public Part save(Part part) {
-        return partRepository.save(part);
+    public Part update(Part part) {
+        if (partRepository.existsById(part.getId())) {
+            return partRepository.save(part);
+        }
+        throw new EntityNotFoundException("Детали с Id " + part.getId()  + " нет в базе данных.");
     }
 
     public void delete(Integer partId) {

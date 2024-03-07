@@ -12,9 +12,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class HoleDto {
 
-    Integer holeId;
+    int holeId;
 
-    Integer partId;
+    long partId;
 
     double diameter;
 

@@ -14,7 +14,7 @@ public interface PartRepository extends JpaRepository<Part, Integer> {
             WHERE id = :partId
             """
             , nativeQuery = true)
-    PartSize getSizesById(@Param("partId") Integer partId);
+    PartSize getSizesById(@Param("partId") int partId);
 
 }
 

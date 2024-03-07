@@ -13,7 +13,7 @@ import java.util.List;
 public class HoleSaveDto {
     //TODO добавить проверку ошибок из stopSaveDto
 
-    Integer part_id;
+    int part_id;
 
     double diameter;
 

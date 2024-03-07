@@ -9,6 +9,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PartUpdateDto extends PartSaveDto {
 
-    Integer id;
+    int id;
 
 }

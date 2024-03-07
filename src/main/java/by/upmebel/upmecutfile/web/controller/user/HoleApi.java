@@ -30,8 +30,6 @@ public class HoleApi {
     PartRepository partRepository;
     PatternConverter patternConverter;
 
-
-
     //CREATE
     @PostMapping
     public HoleDto save(@RequestBody HoleSaveDto dto) {
@@ -58,6 +56,7 @@ public class HoleApi {
         return holeMapper.toDto(holeService.getAll());
     }
 
+    //TODO вынести save и update в абстрактный класс
     @PutMapping
     public HoleDto update(@RequestBody HoleUpdateDto dto) {
         PartSize sizes = partRepository.getSizesById(dto.getPart_id());
@@ -69,7 +68,7 @@ public class HoleApi {
 
         Hole hole = holeMapper.fromDto(dto, coordinates);
 
-        Hole save = holeService.save(hole);
+        Hole save = holeService.update(hole);
 
         return holeMapper.toDto(save);
     }

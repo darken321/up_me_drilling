@@ -21,7 +21,7 @@ public interface HoleRepository extends JpaRepository<Hole, Integer> {
             WHERE part_id = :id
             """
             , nativeQuery = true)
-    List<Hole> findPartHoles(@Param("id") Integer partId);
+    List<Hole> findPartHoles(@Param("id") int partId);
 
 
     @EntityGraph(attributePaths = {"part"})

@@ -11,6 +11,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class HoleUpdateDto extends HoleSaveDto {
 
-    Integer id;
+    int id;
 
 }

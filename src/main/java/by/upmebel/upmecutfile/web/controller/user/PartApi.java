@@ -40,11 +40,11 @@ public class PartApi {
         }
         return partMapper.toDto(partService.getAll());
     }
-    //TODO пересчитать и переписать отверстия при UPDATE
+
     @PutMapping
     public PartDto update(@RequestBody PartUpdateDto dto) {
         Part part = partMapper.fromDto(dto);
-        Part save = partService.save(part);
+        Part save = partService.update(part);
         return partMapper.toDto(save);
     }
 
