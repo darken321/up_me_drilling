@@ -1,5 +1,6 @@
-package dto;
+package dto.hole;
 
+import dto.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

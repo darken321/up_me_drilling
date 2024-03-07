@@ -1,15 +1,13 @@
-package dto;
+package dto.part;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class HoleUpdateDto extends HoleSaveDto {
+public class PartUpdateDto extends PartSaveDto {
 
     int id;
 

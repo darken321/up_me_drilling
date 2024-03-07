@@ -3,9 +3,6 @@ package dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-import java.util.Map;
-
 @Data
 @Builder
 @AllArgsConstructor
