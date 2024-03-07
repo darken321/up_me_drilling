@@ -1,6 +1,6 @@
 package by.upmebel.upmecutfile.projection;
 
-public interface PartSizeProjection {
+public interface PartSize {
     Double getL();
     Double getB();
     Double getH();

@@ -21,7 +21,7 @@ public class Part {
     @Column(name = "id")
     int id;
 
-    @OneToMany(mappedBy = "part", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "part", cascade = CascadeType.ALL)
     List<Hole> holes = new ArrayList<>();
 
     @Column(name = "l")

@@ -6,6 +6,7 @@ import by.upmebel.upmecutfile.model.Part;
 import by.upmebel.upmecutfile.service.PartService;
 import dto.PartDto;
 import dto.PartSaveDto;
+import dto.PartUpdateDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -39,8 +40,13 @@ public class PartApi {
         }
         return partMapper.toDto(partService.getAll());
     }
-    //TODO сделать UPDATE
-
+    //TODO пересчитать и переписать отверстия при UPDATE
+    @PutMapping
+    public PartDto update(@RequestBody PartUpdateDto dto) {
+        Part part = partMapper.fromDto(dto);
+        Part save = partService.save(part);
+        return partMapper.toDto(save);
+    }
 
     //DELETE
     @DeleteMapping

@@ -4,12 +4,13 @@ package by.upmebel.upmecutfile.web.controller.user;
 import by.upmebel.upmecutfile.mapper.HoleMapper;
 import by.upmebel.upmecutfile.model.Coordinates;
 import by.upmebel.upmecutfile.model.Hole;
-import by.upmebel.upmecutfile.projection.PartSizeProjection;
+import by.upmebel.upmecutfile.projection.PartSize;
 import by.upmebel.upmecutfile.repository.PartRepository;
 import by.upmebel.upmecutfile.service.HoleService;
 import by.upmebel.upmecutfile.utils.PatternConverter;
 import dto.HoleDto;
 import dto.HoleSaveDto;
+import dto.HoleUpdateDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -34,7 +35,7 @@ public class HoleApi {
     //CREATE
     @PostMapping
     public HoleDto save(@RequestBody HoleSaveDto dto) {
-        PartSizeProjection sizes = partRepository.getSizesById(dto.getPart_id());
+        PartSize sizes = partRepository.getSizesById(dto.getPart_id());
 
         Coordinates coordinates = new Coordinates();
         coordinates.setL(patternConverter.convert(dto.getLPatterns(),sizes));
@@ -57,7 +58,21 @@ public class HoleApi {
         return holeMapper.toDto(holeService.getAll());
     }
 
-    //TODO UPDATE
+    @PutMapping
+    public HoleDto update(@RequestBody HoleUpdateDto dto) {
+        PartSize sizes = partRepository.getSizesById(dto.getPart_id());
+
+        Coordinates coordinates = new Coordinates();
+        coordinates.setL(patternConverter.convert(dto.getLPatterns(),sizes));
+        coordinates.setB(patternConverter.convert(dto.getBPatterns(),sizes));
+        coordinates.setH(patternConverter.convert(dto.getHPatterns(),sizes));
+
+        Hole hole = holeMapper.fromDto(dto, coordinates);
+
+        Hole save = holeService.save(hole);
+
+        return holeMapper.toDto(save);
+    }
 
     //DELETE
     @DeleteMapping
@@ -66,27 +81,3 @@ public class HoleApi {
     }
 
 }
-/*
-Тело Post запроса имеет вид:
-{
-        "part_id": "3",
-        "diameter": "10",
-        "depth": "5",
-        "drillEntrySpeed": "100",
-        "drillExitSpeed": "50",
-        "lPatterns": [
-        {"variable": "L", "operator": "/", "value": 2},
-        {"variable": "L", "operator": "/", "value": 1},
-        {"variable": "H", "operator": "-", "value": 1},
-        {"variable": "", "operator": "", "value": 100}
-        ],
-        "bPatterns": [
-        {"variable": "B", "operator": "*", "value": 2},
-        {"variable": "H", "operator": "-", "value": 1}
-        ],
-        "hPatterns": [
-        {"variable": "H", "operator": "-", "value": 1},
-        {"variable": "", "operator": "", "value": 30}
-        ]
-        }
-*/

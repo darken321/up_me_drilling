@@ -1,13 +1,12 @@
 package by.upmebel.upmecutfile.mapper;
 
 
-import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.model.Part;
 import by.upmebel.upmecutfile.repository.HoleRepository;
 import dto.HoleDto;
-import dto.HoleSaveDto;
 import dto.PartDto;
 import dto.PartSaveDto;
+import dto.PartUpdateDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +20,17 @@ public class PartMapper {
     HoleMapper holeMapper;
 
     // Принимает DTO от контроллера с API и отдаёт Part
-    public Part fromDto (PartSaveDto dto) {
+    public Part fromDto(PartSaveDto dto) {
         return Part.builder()
+                .l(dto.getL())
+                .b(dto.getB())
+                .h(dto.getH())
+                .build();
+    }
+
+    public Part fromDto(PartUpdateDto dto) {
+        return Part.builder()
+                .id(dto.getId())
                 .l(dto.getL())
                 .b(dto.getB())
                 .h(dto.getH())

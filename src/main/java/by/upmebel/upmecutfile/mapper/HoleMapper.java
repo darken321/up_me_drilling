@@ -9,6 +9,7 @@ import by.upmebel.upmecutfile.service.PartService;
 import by.upmebel.upmecutfile.utils.PatternConverter;
 import dto.HoleDto;
 import dto.HoleSaveDto;
+import dto.HoleUpdateDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,21 @@ public class HoleMapper {
     PatternConverter patternConverter;
     PartService partService;
 
+    public Hole fromDto(HoleUpdateDto dto, Coordinates coordinates) {
+        Part part = partRepository.getReferenceById(dto.getPart_id());
+
+        return Hole.builder()
+                .id(dto.getId())
+                .part(part)
+                .diameter(dto.getDiameter())
+                .depth(dto.getDepth())
+                .drillEntrySpeed(dto.getDrillEntrySpeed())
+                .drillExitSpeed(dto.getDrillExitSpeed())
+                .coordinateL(coordinates.getL())
+                .coordinateB(coordinates.getB())
+                .coordinateH(coordinates.getH())
+                .build();
+    }
     public Hole fromDto(HoleSaveDto dto, Coordinates coordinates) {
         Part part = partRepository.getReferenceById(dto.getPart_id());
 

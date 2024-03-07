@@ -1,6 +1,6 @@
 package by.upmebel.upmecutfile.utils;
 
-import by.upmebel.upmecutfile.projection.PartSizeProjection;
+import by.upmebel.upmecutfile.projection.PartSize;
 import dto.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class PatternConverter {
         double apply(double variable, double value);
     }
 
-    public Double convert(List<Pattern> patterns, PartSizeProjection partSizes) {
+    public Double convert(List<Pattern> patterns, PartSize partSizes) {
 
         double result = 0.0;
 
