@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @Builder
+@Validated
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -25,15 +27,15 @@ public class Part {
     @OneToMany(mappedBy = "part", cascade = CascadeType.ALL)
     List<Hole> holes = new ArrayList<>();
 
-    @Positive
+    @Positive(message = "Размер должен быть больше ноля")
     @Column(name = "l")
     double l;
 
-    @Positive
+    @Positive(message = "Размер должен быть больше ноля")
     @Column(name = "b")
     double b;
 
-    @Positive
+    @Positive(message = "Размер должен быть больше ноля")
     @Column(name = "h")
     double h;
 

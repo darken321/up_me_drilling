@@ -1,14 +1,17 @@
 package by.upmebel.upmecutfile.utils;
 
 import by.upmebel.upmecutfile.projection.PartSize;
-import dto.Pattern;
+import dto.SizePattern;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Map;
 
 @Component
+@Validated
 @RequiredArgsConstructor
 public class PatternConverter {
 
@@ -17,8 +20,7 @@ public class PatternConverter {
         double apply(double variable, double value);
     }
 
-    public Double convert(List<Pattern> patterns, PartSize partSizes) {
-
+    public Double convert(@Valid List<SizePattern> patterns, @Valid PartSize partSizes) {
         double result = 0.0;
 
         Map<String, Operation> operations = Map.of(
@@ -28,7 +30,7 @@ public class PatternConverter {
                 "/", (variable, value) -> variable / value
         );
 
-        for (Pattern pattern : patterns) {
+        for (SizePattern pattern : patterns) {
             Operation operation = operations.getOrDefault(pattern.getOperator(), (variable, value) -> variable);
             switch (pattern.getVariable()) {
                 case "L" -> result += operation.apply(partSizes.getL(), pattern.getValue());

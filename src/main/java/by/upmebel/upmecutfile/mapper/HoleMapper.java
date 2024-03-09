@@ -5,8 +5,6 @@ import by.upmebel.upmecutfile.model.Coordinates;
 import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.model.Part;
 import by.upmebel.upmecutfile.repository.PartRepository;
-import by.upmebel.upmecutfile.service.PartService;
-import by.upmebel.upmecutfile.utils.PatternConverter;
 import dto.hole.HoleDto;
 import dto.hole.HoleSaveDto;
 import dto.hole.HoleUpdateDto;
@@ -21,8 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 public class HoleMapper {
     private final PartRepository partRepository;
-    private final PatternConverter patternConverter;
-    private final PartService partService;
 
     public Hole fromDto(HoleUpdateDto dto, Coordinates coordinates) {
         Part part = partRepository.getReferenceById(dto.getPart_id());
@@ -39,6 +35,7 @@ public class HoleMapper {
                 .coordinateH(coordinates.getH())
                 .build();
     }
+
     public Hole fromDto(HoleSaveDto dto, Coordinates coordinates) {
         Part part = partRepository.getReferenceById(dto.getPart_id());
 
@@ -53,13 +50,6 @@ public class HoleMapper {
                 .coordinateH(coordinates.getH())
                 .build();
     }
-
-    // Принимает пачку DTO от контроллера и отдаёт пачку Hole
-//    public List<Hole> fromDto(List<HoleSaveDto> dtoList) {
-//        return dtoList.stream()
-//                .map(this::fromDto)
-//                .toList();
-//    }
 
     public HoleDto toDto(Hole hole) {
         return HoleDto.builder()

@@ -12,7 +12,10 @@ import dto.hole.HoleDto;
 import dto.hole.HoleSaveDto;
 import dto.hole.HoleUpdateDto;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +24,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-@Validated
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("api/v1/hole")
 public class HoleApi {
     private final HoleService holeService;
@@ -31,37 +33,31 @@ public class HoleApi {
     private final PartRepository partRepository;
     private final PatternConverter patternConverter;
 
-    //CREATE
     @PostMapping
-    public HoleDto save(@RequestBody HoleSaveDto dto) {
+    public HoleDto save(@RequestBody @Valid HoleSaveDto dto) {
 
         Hole hole = holeMapper.fromDto(dto, getCoordinates(dto));
         Hole save = holeService.save(hole);
         return holeMapper.toDto(save);
     }
 
-    //READ
     @GetMapping
-    public List<HoleDto> getByFilters(@RequestParam(required = false) Integer id) {
+    public List<HoleDto> getByFilters(@RequestParam(required = false) @Valid Integer id) {
         if (id != null) {
             return holeMapper.toDto(Collections.singletonList(holeService.findById(id)));
         }
         return holeMapper.toDto(holeService.getAll());
     }
 
-    //TODO вынести save и update в абстрактный класс
     @PutMapping
-    public HoleDto update(@RequestBody HoleUpdateDto dto) {
-        //из DTO получил отверстие с координатами и подсчетом из размеров детали
+    public HoleDto update(@RequestBody @Valid HoleUpdateDto dto) {
         Hole hole = holeMapper.fromDto(dto, getCoordinates(dto));
-        //сохранил его в БД
         Hole save = holeService.update(hole);
         return holeMapper.toDto(save);
     }
 
-    //DELETE
     @DeleteMapping
-    public void delete(@RequestParam Integer id) {
+    public void delete(@RequestParam @Valid Integer id) {
         holeService.delete(id);
     }
 
@@ -72,7 +68,7 @@ public class HoleApi {
      * @return три координаты отверстия Coordinates
      */
 
-    private Coordinates getCoordinates(HoleSaveDto dto) {
+    private Coordinates getCoordinates(@NotNull @Valid HoleSaveDto dto) {
         //проверка что такая деталь есть
         if (!partRepository.existsById(dto.getPart_id())) {
             throw new EntityNotFoundException("Детали с id " + dto.getPart_id() + " нет в базе данных.");

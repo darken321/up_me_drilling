@@ -1,13 +1,16 @@
 package dto.hole;
 
-import dto.Pattern;
+import dto.SizePattern;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+@Validated
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,25 +21,28 @@ public class HoleSaveDto {
     @Positive
     int part_id;
 
-    @Positive
+    @Positive(message = "диаметр должен быть положительный")
     double diameter;
 
-    @Positive
+    @Positive(message = "глубина должна быть положительной")
     double depth;
 
-    @Positive
+    @Positive(message = "скорость должна быть положительной")
     double drillEntrySpeed;
 
-    @Positive
+    @Positive(message = "скорость должна быть положительной")
     double drillExitSpeed;
 
     @NotNull
-    List<Pattern> lPatterns;
+    @Valid
+    List<SizePattern> lPatterns;
 
     @NotNull
-    List<Pattern> bPatterns;
+    @Valid
+    List<SizePattern> bPatterns;
 
     @NotNull
-    List<Pattern> hPatterns;
+    @Valid
+    List<SizePattern> hPatterns;
 
 }

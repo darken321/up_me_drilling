@@ -7,16 +7,15 @@ import by.upmebel.upmecutfile.service.PartService;
 import dto.part.PartDto;
 import dto.part.PartSaveDto;
 import dto.part.PartUpdateDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-@Validated
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/part")
@@ -24,18 +23,15 @@ public class PartApi {
     private final PartService partService;
     private final PartMapper partMapper;
 
-    //TODO прописать проверки в сигнатуре метода
-    //CREATE
     @PostMapping
-    public PartDto save(@RequestBody PartSaveDto dto) {
+    public PartDto save(@RequestBody @Valid PartSaveDto dto) {
         Part part = partMapper.fromDto(dto);
         Part save = partService.save(part);
         return partMapper.toDto(save);
     }
 
-    //READ одна или все детали
     @GetMapping
-    public List<PartDto> getByFilters(@RequestParam(required = false) Integer id) {
+    public List<PartDto> getByFilters(@RequestParam(required = false) @Valid Integer id) {
         if (id != null) {
             return partMapper.toDto(Collections.singletonList(partService.findById(id)));
         }
@@ -43,15 +39,14 @@ public class PartApi {
     }
 
     @PutMapping
-    public PartDto update(@RequestBody PartUpdateDto dto) {
+    public PartDto update(@RequestBody @Valid PartUpdateDto dto) {
         Part part = partMapper.fromDto(dto);
         Part save = partService.update(part);
         return partMapper.toDto(save);
     }
 
-    //DELETE
     @DeleteMapping
-    public void delete(@RequestParam Integer id) {
+    public void delete(@RequestParam @Valid int id) {
         partService.delete(id);
     }
 }

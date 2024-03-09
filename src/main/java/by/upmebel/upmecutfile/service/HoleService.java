@@ -5,20 +5,24 @@ import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.repository.HoleRepository;
 import by.upmebel.upmecutfile.repository.PartRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
+@Validated
 @RequiredArgsConstructor
 public class HoleService {
     private final HoleRepository holeRepository;
     private final PartRepository partRepository;
 
-    public Hole save(Hole hole) {
+    public Hole save(@Valid Hole hole) {
         if (partRepository.existsById(hole.getPart().getId())) {
             return holeRepository.save(hole);
         }
@@ -29,21 +33,22 @@ public class HoleService {
         return holeRepository.findAll();
     }
 
-    public Hole findById(Integer id) {
-        return holeRepository.findById(id).orElseThrow();
+    public Hole findById(@Valid Integer id) {
+        return holeRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Отверстия с id " + id + " нет в базе данных."));
     }
 
-    public Hole update(Hole hole) {
+    public Hole update(@Valid Hole hole) {
         if (!partRepository.existsById(hole.getPart().getId())) {
-            throw new EntityNotFoundException("Детали с Id " + hole.getPart().getId() + " нет в базе данных.");
+            throw new NoSuchElementException("Детали с id " + hole.getPart().getId() + " нет в базе данных.");
         } else
         if (!holeRepository.existsById(hole.getId())) {
-            throw new EntityNotFoundException("Отверстия с Id " + hole.getId() + " нет в базе данных.");
+            throw new NoSuchElementException("Отверстия с id " + hole.getId() + " нет в базе данных.");
         }
         return holeRepository.save(hole);
     }
 
-    public void delete(Integer id) {
+    public void delete(@Valid Integer id) {
         holeRepository.deleteById(id);
     }
 }

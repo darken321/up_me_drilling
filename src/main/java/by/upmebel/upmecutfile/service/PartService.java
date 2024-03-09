@@ -7,21 +7,25 @@ import by.upmebel.upmecutfile.projection.PartSize;
 import by.upmebel.upmecutfile.repository.HoleRepository;
 import by.upmebel.upmecutfile.repository.PartRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
+@Validated
 @RequiredArgsConstructor
 public class PartService {
     private final PartRepository partRepository;
     private final HoleRepository holeRepository;
 
-    public Part save(Part part) {
+    public Part save(@Valid Part part) {
         return partRepository.save(part);
     }
 
@@ -29,24 +33,24 @@ public class PartService {
         return partRepository.findAll();
     }
 
-    public Part findById(Integer id) {
+    public Part findById(@Valid Integer id) {
         return partRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Детали с id " + id + " нет в базе данных."));
+                .orElseThrow(() -> new NoSuchElementException("Детали с id " + id + " нет в базе данных."));
     }
 
-    public Part update(Part part) {
+    public Part update(@Valid Part part) {
         if (partRepository.existsById(part.getId())) {
             saveResizeHoles(part);
             return partRepository.save(part);
         }
-        throw new EntityNotFoundException("Детали с id " + part.getId() + " нет в базе данных.");
+        throw new NoSuchElementException("Детали с id " + part.getId() + " нет в базе данных.");
     }
 
-    public void delete(Integer partId) {
+    public void delete(@Valid Integer partId) {
         partRepository.deleteById(partId);
     }
 
-    private void saveResizeHoles(Part part) {
+    private void saveResizeHoles(@Valid Part part) {
         PartSize oldPartSizes = partRepository.getSizesById(part.getId());
         List<Hole> holes = holeRepository.findPartHoles(part.getId());
 
