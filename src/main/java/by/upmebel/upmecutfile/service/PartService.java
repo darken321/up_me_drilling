@@ -30,8 +30,8 @@ public class PartService {
     }
 
     public Part findById(Integer id) {
-        //TODO обработать ошибку если не нашел
-        return partRepository.findById(id).orElseThrow();
+        return partRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Детали с id " + id + " нет в базе данных."));
     }
 
     public Part update(Part part) {

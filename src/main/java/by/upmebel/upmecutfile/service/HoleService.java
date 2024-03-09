@@ -22,7 +22,7 @@ public class HoleService {
         if (partRepository.existsById(hole.getPart().getId())) {
             return holeRepository.save(hole);
         }
-        throw new EntityNotFoundException("Детали с Id " + hole.getPart().getId() + " нет в базе данных.");
+        throw new EntityNotFoundException("Детали с id " + hole.getPart().getId() + " нет в базе данных.");
     }
 
     public List<Hole> getAll() {
