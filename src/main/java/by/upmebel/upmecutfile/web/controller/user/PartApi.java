@@ -24,6 +24,7 @@ public class PartApi {
     private final PartService partService;
     private final PartMapper partMapper;
 
+    //TODO прописать проверки в сигнатуре метода
     //CREATE
     @PostMapping
     public PartDto save(@RequestBody PartSaveDto dto) {

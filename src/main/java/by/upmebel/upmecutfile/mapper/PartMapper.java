@@ -16,8 +16,8 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class PartMapper {
-    HoleRepository holeRepository;
-    HoleMapper holeMapper;
+    private final HoleRepository holeRepository;
+    private final HoleMapper holeMapper;
 
     // Принимает DTO от контроллера с API и отдаёт Part
     public Part fromDto(PartSaveDto dto) {

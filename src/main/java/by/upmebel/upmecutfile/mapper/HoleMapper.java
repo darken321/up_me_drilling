@@ -20,9 +20,9 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class HoleMapper {
-    PartRepository partRepository;
-    PatternConverter patternConverter;
-    PartService partService;
+    private final PartRepository partRepository;
+    private final PatternConverter patternConverter;
+    private final PartService partService;
 
     public Hole fromDto(HoleUpdateDto dto, Coordinates coordinates) {
         Part part = partRepository.getReferenceById(dto.getPart_id());

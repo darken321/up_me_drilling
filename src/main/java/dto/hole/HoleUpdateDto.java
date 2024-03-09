@@ -1,5 +1,6 @@
 package dto.hole;
 
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class HoleUpdateDto extends HoleSaveDto {
 
+    @Positive
     int id;
 
 }

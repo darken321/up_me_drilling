@@ -1,4 +1,4 @@
-package by.upmebel.upmecutfile;
+package by.upmebel.upmecutfile.config;
 
 import by.upmebel.upmecutfile.model.Part;
 import by.upmebel.upmecutfile.model.Hole;

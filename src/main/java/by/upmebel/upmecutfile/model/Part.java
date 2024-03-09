@@ -1,6 +1,7 @@
 package by.upmebel.upmecutfile.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -24,12 +25,15 @@ public class Part {
     @OneToMany(mappedBy = "part", cascade = CascadeType.ALL)
     List<Hole> holes = new ArrayList<>();
 
+    @Positive
     @Column(name = "l")
     double l;
 
+    @Positive
     @Column(name = "b")
     double b;
 
+    @Positive
     @Column(name = "h")
     double h;
 
