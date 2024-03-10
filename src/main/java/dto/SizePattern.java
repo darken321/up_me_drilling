@@ -1,10 +1,8 @@
 package dto;
 
 import by.upmebel.upmecutfile.utils.StringPatterns;
-import by.upmebel.upmecutfile.validation.DoubleFormat;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;

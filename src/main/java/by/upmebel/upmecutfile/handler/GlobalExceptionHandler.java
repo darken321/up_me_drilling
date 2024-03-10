@@ -6,7 +6,6 @@ import dto.exception.ExceptionDto;
 import jakarta.persistence.EntityExistsException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,14 +23,12 @@ import java.util.UUID;
  */
 @RestControllerAdvice
 @AllArgsConstructor
-@Slf4j
 public class GlobalExceptionHandler {
     ExceptionMapper dtoMapper;
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionDto handleException(Exception exception) {
-        log.error(exception.getMessage(), exception);
         return createExceptionDto(exception);
     }
 
@@ -95,7 +92,6 @@ public class GlobalExceptionHandler {
 
     private ExceptionDto createExceptionDto(Exception exception) {
         ExceptionDto exceptionDto = dtoMapper.exceptionToDto(exception);
-        log.warn(String.valueOf(exceptionDto));
         return exceptionDto;
     }
 }

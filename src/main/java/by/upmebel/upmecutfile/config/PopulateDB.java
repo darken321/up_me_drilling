@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+/**
+ * Класс добавляет в БД 5 деталей и 3 отверстия в них
+ */
 @Slf4j
 @AllArgsConstructor
 @Component
@@ -21,7 +24,6 @@ public class PopulateDB {
     public void init() {
         //Добавляю 3 детали
         Part furniturePart;
-
         for (int i = 20; i <= 60; i+=10) {
             furniturePart = Part.builder()
                     .l(i*1.5)

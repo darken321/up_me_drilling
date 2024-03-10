@@ -9,6 +9,13 @@ import org.springframework.validation.annotation.Validated;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс Part представляет собой сущность детали.
+ * Содержит информацию о размерах детали и связанных с ней отверстиях.
+ * Каждая деталь имеет уникальный идентификатор и может включать в себя множество отверстий,
+ * представленных классом Hole.
+ */
+
 @Entity
 @Data
 @Builder

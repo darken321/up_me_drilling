@@ -6,6 +6,13 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * Класс Hole представляет собой сущность отверстия.
+ * Содержит информацию о параметрах отверстия и связанной с ним деталью.
+ * Каждое отверстие имеет уникальный идентификатор и принадлежит одной детали,
+ * представленной классом Part.
+ */
+
 @Entity
 @Data
 @Builder

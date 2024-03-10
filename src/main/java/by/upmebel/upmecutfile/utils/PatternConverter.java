@@ -10,6 +10,17 @@ import org.springframework.validation.annotation.Validated;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Класс предназначен для преобразования размеров деталей с использованием заданных математических паттернов.
+ * Он позволяет выполнять базовые математические операции над размерами деталей, L,B,H
+ * определенными в интерфейсе {@link PartSize}, согласно паттернам, указанным в списке {@link SizePattern}.
+ *
+ * <p>Преобразование выполняется методом {@code convert}, который принимает список паттернов и объект, содержащий размеры детали.
+ * Каждый паттерн в списке определяет операцию, которая должна быть применена к одному из размеров детали (длина, ширина, высота),
+ * и значение, которое используется в этой операции. Результатом является сумма всех примененных операций.</p>
+ *
+ */
 @Component
 @Validated
 @RequiredArgsConstructor
@@ -20,6 +31,12 @@ public class PatternConverter {
         double apply(double variable, double value);
     }
 
+    /**
+     *
+     * @param patterns  список паттернов
+     * @param partSizes  размеры детали
+     * @return координата как результат конвертации
+     */
     public Double convert(@Valid List<SizePattern> patterns, @Valid PartSize partSizes) {
         double result = 0.0;
 
@@ -27,7 +44,12 @@ public class PatternConverter {
                 "+", (variable, value) -> variable + value,
                 "-", (variable, value) -> variable - value,
                 "*", (variable, value) -> variable * value,
-                "/", (variable, value) -> variable / value
+                "/", (variable, value) -> {
+                    if (value == 0) {
+                        throw new ArithmeticException("Деление на ноль");
+                    }
+                    return variable / value;
+                }
         );
 
         for (SizePattern pattern : patterns) {

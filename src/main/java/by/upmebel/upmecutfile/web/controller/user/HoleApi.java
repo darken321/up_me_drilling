@@ -62,12 +62,11 @@ public class HoleApi {
     }
 
     /**
-     * Принимает dto и возвращает три координаты отверстия
+     * Принимает dto детали и возвращает три координаты отверстия
      *
      * @param dto отверстия
      * @return три координаты отверстия Coordinates
      */
-
     private Coordinates getCoordinates(@NotNull @Valid HoleSaveDto dto) {
         //проверка что такая деталь есть
         if (!partRepository.existsById(dto.getPart_id())) {

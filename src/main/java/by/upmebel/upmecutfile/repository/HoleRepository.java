@@ -1,17 +1,19 @@
 package by.upmebel.upmecutfile.repository;
 
 import by.upmebel.upmecutfile.model.Hole;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface HoleRepository extends JpaRepository<Hole, Integer> {
     /**
-     * возвращает список отверстий, которые принадлежат к одной детали
+     * Возвращает список отверстий, принадлежащих к детали с указанным идентификатором.
+     * Использует нативный SQL-запрос для извлечения данных из таблицы hole.
+     *
+     * @param partId Идентификатор детали, для которой требуется найти отверстия.
+     * @return Список отверстий, принадлежащих указанной детали.
      */
     @Query(value = """
             SELECT *
@@ -21,7 +23,4 @@ public interface HoleRepository extends JpaRepository<Hole, Integer> {
             , nativeQuery = true)
     List<Hole> findPartHoles(@Param("id") int partId);
 
-
-    @EntityGraph(attributePaths = {"part"})
-    Optional<Hole> findHoleById(int id);
 }
