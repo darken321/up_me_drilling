@@ -5,6 +5,11 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
+
+/**
+ * DTO для обновления детали
+ */
+
 @Data
 @Validated
 @AllArgsConstructor

@@ -4,7 +4,6 @@ package by.upmebel.upmecutfile.service;
 import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.repository.HoleRepository;
 import by.upmebel.upmecutfile.repository.PartRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,13 +32,13 @@ public class HoleService {
      *
      * @param hole Сущность отверстия, которую необходимо сохранить.
      * @return Сохраненная сущность отверстия.
-     * @throws EntityNotFoundException если связанная деталь не найдена в базе данных.
+     * @throws NoSuchElementException если связанная деталь не найдена в базе данных.
      */
     public Hole save(@Valid Hole hole) {
         if (partRepository.existsById(hole.getPart().getId())) {
             return holeRepository.save(hole);
         }
-        throw new EntityNotFoundException("Детали с id " + hole.getPart().getId() + " нет в базе данных.");
+        throw new NoSuchElementException("Детали с id " + hole.getPart().getId() + " нет в базе данных.");
     }
 
     /**

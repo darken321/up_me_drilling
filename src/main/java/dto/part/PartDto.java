@@ -9,6 +9,10 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+/**
+ * DTO для детали, которое отдается на фронт.
+ * Содержит размеры детали и список отверстий с данными.
+ */
 @Data
 @Builder
 @Validated
@@ -20,13 +24,13 @@ public class PartDto {
     @Positive(message = "id должен быть положительный")
     int id;
 
-    @Positive(message = "Размер должен быть больше ноля")
+    @Positive(message = "Размер должен быть положительный")
     double l;
 
-    @Positive(message = "Размер должен быть больше ноля")
+    @Positive(message = "Размер должен быть положительный")
     double b;
 
-    @Positive(message = "Размер должен быть больше ноля")
+    @Positive(message = "Размер должен быть положительный")
     double h;
 
     @NotNull

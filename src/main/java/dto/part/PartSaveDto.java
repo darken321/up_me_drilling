@@ -5,6 +5,10 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * DTO для сохранения детали
+ */
+
 @Data
 @Builder
 @Validated

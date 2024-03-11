@@ -19,7 +19,6 @@ public class PartMapper {
     private final HoleRepository holeRepository;
     private final HoleMapper holeMapper;
 
-    // Принимает DTO от контроллера с API и отдаёт Part
     public Part fromDto(PartSaveDto dto) {
         return Part.builder()
                 .l(dto.getL())
@@ -37,14 +36,12 @@ public class PartMapper {
                 .build();
     }
 
-    // Принимает пачку DTO от контроллера и отдаёт пачку Part
     public List<Part> fromDto(List<PartSaveDto> dtoList) {
         return dtoList.stream()
                 .map(this::fromDto)
                 .toList();
     }
 
-    //Принимает Part и отдает Dto в API
     public PartDto toDto(Part part) {
         List<HoleDto> holes = holeMapper.toDto(holeRepository.findPartHoles(part.getId()));
         return PartDto.builder()

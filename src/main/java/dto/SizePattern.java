@@ -7,6 +7,13 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * Класс для хранения информации о паттерне для расчета координат отверстий в зависимости от размера детали.
+ * variable - какой размер детали учитывается
+ * operator - операция над размером
+ * value - числовое значение, на которое производится операция.
+ */
+
 @Validated
 @Data
 @Builder
