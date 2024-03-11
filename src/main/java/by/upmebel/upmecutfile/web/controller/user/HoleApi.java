@@ -104,11 +104,11 @@ public class HoleApi {
      * @throws EntityNotFoundException если связанная деталь не найдена в базе данных.
      */
     private Coordinates getCoordinates(@NotNull @Valid HoleSaveDto dto) {
-        if (!partRepository.existsById(dto.getPart_id())) {
-            throw new EntityNotFoundException("Детали с id " + dto.getPart_id() + " нет в базе данных.");
+        if (!partRepository.existsById(dto.getPartId())) {
+            throw new EntityNotFoundException("Детали с id " + dto.getPartId() + " нет в базе данных.");
         }
 
-        PartSize sizes = partRepository.getSizesById(dto.getPart_id());
+        PartSize sizes = partRepository.getSizesById(dto.getPartId());
 
         return Coordinates.builder()
                 .l(patternConverter.convert(dto.getLPatterns(), sizes))

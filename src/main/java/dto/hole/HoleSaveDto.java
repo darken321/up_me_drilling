@@ -3,35 +3,28 @@ package dto.hole;
 import dto.SizePattern;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
-@Validated
+
+/**
+ * DTO для сохранения отверстия в БД.
+ * Содержит параметры отверстия, id детали
+ * и паттерны для расчета координат отверстия
+ */
+
 @Data
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@Validated
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class HoleSaveDto {
-
-    @Positive
-    int part_id;
-
-    @Positive(message = "диаметр должен быть положительный")
-    double diameter;
-
-    @Positive(message = "глубина должна быть положительной")
-    double depth;
-
-    @Positive(message = "скорость должна быть положительной")
-    double drillEntrySpeed;
-
-    @Positive(message = "скорость должна быть положительной")
-    double drillExitSpeed;
+public class HoleSaveDto extends BaseHoleDto {
 
     @NotNull
     @Valid

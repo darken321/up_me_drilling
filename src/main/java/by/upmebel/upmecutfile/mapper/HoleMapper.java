@@ -21,7 +21,7 @@ public class HoleMapper {
     private final PartRepository partRepository;
 
     public Hole fromDto(HoleUpdateDto dto, Coordinates coordinates) {
-        Part part = partRepository.getReferenceById(dto.getPart_id());
+        Part part = partRepository.getReferenceById(dto.getPartId());
 
         return Hole.builder()
                 .id(dto.getId())
@@ -37,7 +37,7 @@ public class HoleMapper {
     }
 
     public Hole fromDto(HoleSaveDto dto, Coordinates coordinates) {
-        Part part = partRepository.getReferenceById(dto.getPart_id());
+        Part part = partRepository.getReferenceById(dto.getPartId());
 
         return Hole.builder()
                 .part(part)

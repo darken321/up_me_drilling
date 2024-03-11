@@ -3,9 +3,16 @@ package dto.hole;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * DTO для обновления отверстия.
+ * Содержит id отверстия для обновления и прочие параметры.
+ */
+
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Validated
 @AllArgsConstructor
 @NoArgsConstructor

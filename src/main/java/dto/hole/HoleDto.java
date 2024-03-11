@@ -5,33 +5,25 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 import org.springframework.validation.annotation.Validated;
 
-@Validated
+/**
+ * DTO для отверстия, которое отдается на фронт.
+ * Содержит id детали и отверстия, координаты и прочие параметры.
+ */
+
 @Data
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@Validated
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class HoleDto {
+public class HoleDto extends BaseHoleDto {
 
     @Positive(message = "id должен быть положительный")
     int holeId;
-
-    @Positive(message = "id должен быть положительный")
-    long partId;
-
-    @Positive(message = "диаметр должен быть положительный")
-    double diameter;
-
-    @Positive(message = "глубина должна быть положительной")
-    double depth;
-
-    @Positive(message = "скорость должна быть положительной")
-    double drillEntrySpeed;
-
-    @Positive(message = "скорость должна быть положительной")
-    double drillExitSpeed;
 
     @PositiveOrZero(message = "Координата должна быть не отрицательной")
     double coordinateL;
