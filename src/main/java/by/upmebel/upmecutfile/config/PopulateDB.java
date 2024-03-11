@@ -22,9 +22,9 @@ public class PopulateDB {
 
     @PostConstruct
     public void init() {
-        //Добавляю 3 детали
+        //Добавляю 5 деталей
         Part furniturePart;
-        for (int i = 20; i <= 60; i+=10) {
+        for (int i = 10; i <= 30; i+=5) {
             furniturePart = Part.builder()
                     .l(i*1.5)
                     .b(18.0)

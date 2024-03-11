@@ -1,6 +1,8 @@
 package by.upmebel.upmecutfile.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -38,11 +40,12 @@ public class Part {
     @Column(name = "l")
     double l;
 
-    @Positive(message = "Размер должен быть больше ноля")
+    @Positive(message = "Размер b должен быть больше ноля")
     @Column(name = "b")
     double b;
 
-    @Positive(message = "Размер должен быть больше ноля")
+    @DecimalMin(value = "4.0", message = "Высота должна быть больше 4")
+    @DecimalMax(value = "50.0", message = "Высота должна быть меньше 50")
     @Column(name = "h")
     double h;
 
