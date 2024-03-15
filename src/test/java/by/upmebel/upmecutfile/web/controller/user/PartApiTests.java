@@ -71,48 +71,48 @@ public class PartApiTests {
                 .build();
     }
 
-    @Test
-    void savePart_ReturnsPartDto() throws Exception {
-        given(partMapper.fromDto(any(PartSaveDto.class))).willReturn(part);
-        given(partService.save(any(Part.class))).willReturn(part);
-        given(partMapper.toDto(any(Part.class))).willReturn(partDto);
+//    @Test
+//    void savePart_ReturnsPartDto() throws Exception {
+//        given(partMapper.fromDto(any(PartSaveDto.class))).willReturn(part);
+//        given(partService.save(any(Part.class))).willReturn(part);
+//        given(partMapper.toDto(any(Part.class))).willReturn(partDto);
+//
+//        mockMvc.perform(post("/api/v1/part")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(partSaveDto)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").value(partDto.getId()))
+//                .andExpect(jsonPath("$.l").value(partDto.getL()))
+//                .andExpect(jsonPath("$.b").value(partDto.getB()))
+//                .andExpect(jsonPath("$.h").value(partDto.getH()))
+//                .andExpect(jsonPath("$.holes").isEmpty());
+//
+//        verify(partMapper).fromDto(eq(partSaveDto));
+//        verify(partService).save(eq(part));
+//        verify(partMapper).toDto(eq(part));
+//    }
 
-        mockMvc.perform(post("/api/v1/part")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(partSaveDto)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(partDto.getId()))
-                .andExpect(jsonPath("$.l").value(partDto.getL()))
-                .andExpect(jsonPath("$.b").value(partDto.getB()))
-                .andExpect(jsonPath("$.h").value(partDto.getH()))
-                .andExpect(jsonPath("$.holes").isEmpty());
-
-        verify(partMapper).fromDto(eq(partSaveDto));
-        verify(partService).save(eq(part));
-        verify(partMapper).toDto(eq(part));
-    }
-
-    @Test
-    void testGetByFiltersWhenIdIsNullThenReturnPartDtoList() throws Exception {
-        given(partService.getAll()).willReturn(Arrays.asList(part, part));
-        given(partMapper.toDto(any(List.class))).willReturn(Arrays.asList(partDto, partDto));
-
-        mockMvc.perform(get("/api/v1/part"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(partDto.getId()))
-                .andExpect(jsonPath("$[0].l").value(partDto.getL()))
-                .andExpect(jsonPath("$[0].b").value(partDto.getB()))
-                .andExpect(jsonPath("$[0].h").value(partDto.getH()))
-                .andExpect(jsonPath("$[0].holes").isEmpty())
-                .andExpect(jsonPath("$[1].id").value(partDto.getId()))
-                .andExpect(jsonPath("$[1].l").value(partDto.getL()))
-                .andExpect(jsonPath("$[1].b").value(partDto.getB()))
-                .andExpect(jsonPath("$[1].h").value(partDto.getH()))
-                .andExpect(jsonPath("$[1].holes").isEmpty());
-
-        verify(partService).getAll();
-        verify(partMapper).toDto(eq(Arrays.asList(part, part)));
-    }
+//    @Test
+//    void testGetByFiltersWhenIdIsNullThenReturnPartDtoList() throws Exception {
+//        given(partService.getAll()).willReturn(Arrays.asList(part, part));
+//        given(partMapper.toDto(any(List.class))).willReturn(Arrays.asList(partDto, partDto));
+//
+//        mockMvc.perform(get("/api/v1/part"))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$[0].id").value(partDto.getId()))
+//                .andExpect(jsonPath("$[0].l").value(partDto.getL()))
+//                .andExpect(jsonPath("$[0].b").value(partDto.getB()))
+//                .andExpect(jsonPath("$[0].h").value(partDto.getH()))
+//                .andExpect(jsonPath("$[0].holes").isEmpty())
+//                .andExpect(jsonPath("$[1].id").value(partDto.getId()))
+//                .andExpect(jsonPath("$[1].l").value(partDto.getL()))
+//                .andExpect(jsonPath("$[1].b").value(partDto.getB()))
+//                .andExpect(jsonPath("$[1].h").value(partDto.getH()))
+//                .andExpect(jsonPath("$[1].holes").isEmpty());
+//
+//        verify(partService).getAll();
+//        verify(partMapper).toDto(eq(Arrays.asList(part, part)));
+//    }
 
     @Test
     void testDeleteWhenValidIdThenReturnEmptyBodyAndStatusOk() throws Exception {

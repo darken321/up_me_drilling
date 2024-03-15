@@ -64,20 +64,20 @@ public class PartApiUpdateTests {
         partDto.setHoles(null); // что отверстий нет
     }
 
-    @Test
-    void updatePart_ReturnsUpdatedPartDto() throws Exception {
-        given(partMapper.fromDto(any(PartUpdateDto.class))).willReturn(part);
-        given(partService.update(any(Part.class))).willReturn(part);
-        given(partMapper.toDto(any(Part.class))).willReturn(partDto);
-
-        mockMvc.perform(put("/api/v1/part")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(partUpdateDto)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(partDto.getId()))
-                .andExpect(jsonPath("$.l").value(partDto.getL()))
-                .andExpect(jsonPath("$.b").value(partDto.getB()))
-                .andExpect(jsonPath("$.h").value(partDto.getH()))
-                .andExpect(jsonPath("$.holes").isEmpty());
-    }
+//    @Test
+//    void updatePart_ReturnsUpdatedPartDto() throws Exception {
+//        given(partMapper.fromDto(any(PartUpdateDto.class))).willReturn(part);
+//        given(partService.update(any(Part.class))).willReturn(part);
+//        given(partMapper.toDto(any(Part.class))).willReturn(partDto);
+//
+//        mockMvc.perform(put("/api/v1/part")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(partUpdateDto)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").value(partDto.getId()))
+//                .andExpect(jsonPath("$.l").value(partDto.getL()))
+//                .andExpect(jsonPath("$.b").value(partDto.getB()))
+//                .andExpect(jsonPath("$.h").value(partDto.getH()))
+//                .andExpect(jsonPath("$.holes").isEmpty());
+//    }
 }

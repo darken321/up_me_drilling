@@ -4,6 +4,7 @@ package by.upmebel.upmecutfile.web.controller.user;
 import by.upmebel.upmecutfile.mapper.HoleMapper;
 import by.upmebel.upmecutfile.model.Coordinates;
 import by.upmebel.upmecutfile.model.Hole;
+import by.upmebel.upmecutfile.model.Part;
 import by.upmebel.upmecutfile.projection.PartSize;
 import by.upmebel.upmecutfile.repository.PartRepository;
 import by.upmebel.upmecutfile.service.HoleService;
@@ -46,10 +47,10 @@ public class HoleApi {
 
     @PostMapping
     public HoleDto save(@RequestBody @Valid HoleSaveDto dto) {
-
-        Hole hole = holeMapper.fromDto(dto, getCoordinates(dto));
-        Hole save = holeService.save(hole);
-        return holeMapper.toDto(save);
+        Part part = partRepository.getReferenceById(dto.getPartId());
+        Hole hole = holeMapper.fromDto(dto, getCoordinates(dto), part);
+        Hole saveDto = holeService.save(hole);
+        return holeMapper.toDto(saveDto);
     }
 
     /**
@@ -79,11 +80,11 @@ public class HoleApi {
      */
     @PutMapping
     public HoleDto update(@RequestBody @Valid HoleUpdateDto dto) {
-        Hole hole = holeMapper.fromDto(dto, getCoordinates(dto));
-        Hole save = holeService.update(hole);
-        return holeMapper.toDto(save);
+        Part part = partRepository.getReferenceById(dto.getPartId());
+        Hole hole = holeMapper.fromDto(dto, getCoordinates(dto), part);
+        Hole updateDto = holeService.update(hole);
+        return holeMapper.toDto(updateDto);
     }
-
 
     /**
      * Удаляет отверстие из базы данных по его идентификатору.
