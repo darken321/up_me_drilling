@@ -10,6 +10,7 @@ import by.upmebel.upmecutfile.dto.hole.HoleSaveDto;
 import by.upmebel.upmecutfile.dto.hole.HoleUpdateDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,50 +20,34 @@ import java.util.List;
 @AllArgsConstructor
 public class HoleMapper {
     private final PartRepository partRepository;
+    private final ModelMapper modelMapper;
+
 
     public Hole fromDto(HoleUpdateDto dto, Coordinates coordinates) {
         Part part = partRepository.getReferenceById(dto.getPartId());
-
-        return Hole.builder()
-                .id(dto.getId())
-                .part(part)
-                .diameter(dto.getDiameter())
-                .depth(dto.getDepth())
-                .drillEntrySpeed(dto.getDrillEntrySpeed())
-                .drillExitSpeed(dto.getDrillExitSpeed())
-                .coordinateL(coordinates.getL())
-                .coordinateB(coordinates.getB())
-                .coordinateH(coordinates.getH())
-                .build();
+        Hole hole = modelMapper.map(dto, Hole.class);
+        hole.setPart(part);
+        hole.setCoordinateL(coordinates.getL());
+        hole.setCoordinateB(coordinates.getB());
+        hole.setCoordinateH(coordinates.getH());
+        return hole;
     }
 
     public Hole fromDto(HoleSaveDto dto, Coordinates coordinates) {
         Part part = partRepository.getReferenceById(dto.getPartId());
-
-        return Hole.builder()
-                .part(part)
-                .diameter(dto.getDiameter())
-                .depth(dto.getDepth())
-                .drillEntrySpeed(dto.getDrillEntrySpeed())
-                .drillExitSpeed(dto.getDrillExitSpeed())
-                .coordinateL(coordinates.getL())
-                .coordinateB(coordinates.getB())
-                .coordinateH(coordinates.getH())
-                .build();
+        Hole hole = modelMapper.map(dto, Hole.class);
+        hole.setPart(part);
+        hole.setCoordinateL(coordinates.getL());
+        hole.setCoordinateB(coordinates.getB());
+        hole.setCoordinateH(coordinates.getH());
+        return hole;
     }
 
+
     public HoleDto toDto(Hole hole) {
-        return HoleDto.builder()
-                .holeId(hole.getId())
-                .partId(hole.getPart().getId())
-                .diameter(hole.getDiameter())
-                .depth(hole.getDepth())
-                .drillEntrySpeed(hole.getDrillEntrySpeed())
-                .drillExitSpeed(hole.getDrillExitSpeed())
-                .coordinateL(hole.getCoordinateL())
-                .coordinateB(hole.getCoordinateB())
-                .coordinateH(hole.getCoordinateH())
-                .build();
+        HoleDto holeDto = modelMapper.map(hole, HoleDto.class);
+        holeDto.setHoleId(hole.getId());
+        return holeDto;
     }
 
     public List<HoleDto> toDto(List<Hole> holes) {
