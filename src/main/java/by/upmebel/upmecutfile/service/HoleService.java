@@ -87,10 +87,4 @@ public class HoleService {
     public void delete(@Valid Integer id) {
         holeRepository.deleteById(id);
     }
-
-    public List<Hole> findPartHoles(@Valid Integer partId) {
-        return holeRepository.findPartHoles(partId);
-    }
-
-
 }

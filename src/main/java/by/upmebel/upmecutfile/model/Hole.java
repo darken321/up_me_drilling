@@ -1,9 +1,7 @@
 package by.upmebel.upmecutfile.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
@@ -24,12 +22,6 @@ import org.springframework.validation.annotation.Validated;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "hole")
 public class Hole {
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinateL = coordinates.getL();
-        this.coordinateB = coordinates.getB();
-        this.coordinateH = coordinates.getH();
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
