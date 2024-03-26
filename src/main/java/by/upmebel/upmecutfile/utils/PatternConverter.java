@@ -1,7 +1,7 @@
 package by.upmebel.upmecutfile.utils;
 
 import by.upmebel.upmecutfile.projection.PartSize;
-import dto.SizePattern;
+import by.upmebel.upmecutfile.dto.SizePattern;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

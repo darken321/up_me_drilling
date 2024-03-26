@@ -1,4 +1,4 @@
-package dto.part;
+package by.upmebel.upmecutfile.dto.part;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

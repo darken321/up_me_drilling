@@ -1,4 +1,4 @@
-package dto.part;
+package by.upmebel.upmecutfile.dto.part;
 
 import jakarta.validation.constraints.Positive;
 import lombok.*;

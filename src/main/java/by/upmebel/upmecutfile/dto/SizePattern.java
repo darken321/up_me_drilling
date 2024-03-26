@@ -1,4 +1,4 @@
-package dto;
+package by.upmebel.upmecutfile.dto;
 
 import by.upmebel.upmecutfile.utils.StringPatterns;
 import jakarta.validation.constraints.Pattern;

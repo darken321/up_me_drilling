@@ -1,6 +1,6 @@
 package by.upmebel.upmecutfile.web.controller.user.swagger;
 
-import dto.part.PartDto;
+import by.upmebel.upmecutfile.dto.part.PartDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

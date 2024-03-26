@@ -1,25 +1,31 @@
-package dto.hole;
+package by.upmebel.upmecutfile.dto.part;
 
+import by.upmebel.upmecutfile.dto.hole.HoleDto;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.validation.annotation.Validated;
 
-/**
- * DTO для обновления отверстия.
- * Содержит id отверстия для обновления и прочие параметры.
- */
+import java.util.List;
 
+/**
+ * DTO для детали, которое отдается на фронт.
+ * Содержит id, размеры детали и список отверстий с данными.
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @Validated
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class HoleUpdateDto extends HoleSaveDto {
+public class PartDto extends BasePartDto {
 
     @Positive(message = "id должен быть положительный")
     int id;
 
+    @NotNull
+    List<HoleDto> holes;
 }

@@ -1,6 +1,6 @@
 package by.upmebel.upmecutfile.mapper;
 
-import dto.exception.ExceptionDto;
+import by.upmebel.upmecutfile.dto.exception.ExceptionDto;
 import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;

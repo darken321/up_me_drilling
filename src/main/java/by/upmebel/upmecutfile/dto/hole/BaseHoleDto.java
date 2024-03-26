@@ -1,4 +1,4 @@
-package dto.hole;
+package by.upmebel.upmecutfile.dto.hole;
 
 import jakarta.validation.constraints.Positive;
 import lombok.*;

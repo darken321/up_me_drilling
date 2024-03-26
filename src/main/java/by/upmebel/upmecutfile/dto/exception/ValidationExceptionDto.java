@@ -1,4 +1,4 @@
-package dto.exception;
+package by.upmebel.upmecutfile.dto.exception;
 
 
 import lombok.*;

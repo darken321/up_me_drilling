@@ -1,6 +1,6 @@
-package dto.hole;
+package by.upmebel.upmecutfile.dto.hole;
 
-import dto.SizePattern;
+import by.upmebel.upmecutfile.dto.SizePattern;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

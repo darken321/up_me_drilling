@@ -3,10 +3,10 @@ package by.upmebel.upmecutfile.mapper;
 
 import by.upmebel.upmecutfile.model.Part;
 import by.upmebel.upmecutfile.repository.HoleRepository;
-import dto.hole.HoleDto;
-import dto.part.PartDto;
-import dto.part.PartSaveDto;
-import dto.part.PartUpdateDto;
+import by.upmebel.upmecutfile.dto.hole.HoleDto;
+import by.upmebel.upmecutfile.dto.part.PartDto;
+import by.upmebel.upmecutfile.dto.part.PartSaveDto;
+import by.upmebel.upmecutfile.dto.part.PartUpdateDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

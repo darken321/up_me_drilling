@@ -2,7 +2,7 @@ package by.upmebel.upmecutfile.handler;
 
 
 import by.upmebel.upmecutfile.mapper.ExceptionMapper;
-import dto.exception.ExceptionDto;
+import by.upmebel.upmecutfile.dto.exception.ExceptionDto;
 import jakarta.persistence.EntityExistsException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
