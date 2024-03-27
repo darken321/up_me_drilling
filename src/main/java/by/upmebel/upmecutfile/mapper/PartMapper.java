@@ -10,14 +10,13 @@ import by.upmebel.upmecutfile.dto.part.PartUpdateDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Component
 @AllArgsConstructor
 public class PartMapper {
-    private final HoleRepository holeRepository;
-    private final HoleMapper holeMapper;
 
     public Part fromDto(PartSaveDto dto) {
         return Part.builder()
@@ -42,8 +41,7 @@ public class PartMapper {
                 .toList();
     }
 
-    public PartDto toDto(Part part) {
-        List<HoleDto> holes = holeMapper.toDto(holeRepository.findPartHoles(part.getId()));
+    public PartDto toDto(Part part, List<HoleDto> holes) {
         return PartDto.builder()
                 .id(part.getId())
                 .l(part.getL())
@@ -54,9 +52,13 @@ public class PartMapper {
     }
 
 
-    public List<PartDto> toDto(List<Part> parts) {
-        return parts.stream()
-                .map(this::toDto)
-                .toList();
+    public List<PartDto> allToDto(List<Part> parts, List<List<HoleDto>> holesLists) {
+        List<PartDto> partDtos = new ArrayList<>();
+        for (int i = 0; i < parts.size(); i++) {
+            Part part = parts.get(i);
+            List<HoleDto> holes = holesLists.get(i);
+            partDtos.add(toDto(part, holes));
+        }
+        return partDtos;
     }
 }

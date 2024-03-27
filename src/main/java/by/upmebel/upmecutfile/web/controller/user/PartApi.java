@@ -1,18 +1,22 @@
 package by.upmebel.upmecutfile.web.controller.user;
 
 
-import by.upmebel.upmecutfile.mapper.PartMapper;
-import by.upmebel.upmecutfile.model.Part;
-import by.upmebel.upmecutfile.service.PartService;
-import by.upmebel.upmecutfile.web.controller.user.swagger.PartApiSwagger;
+import by.upmebel.upmecutfile.dto.hole.HoleDto;
 import by.upmebel.upmecutfile.dto.part.PartDto;
 import by.upmebel.upmecutfile.dto.part.PartSaveDto;
 import by.upmebel.upmecutfile.dto.part.PartUpdateDto;
+import by.upmebel.upmecutfile.mapper.HoleMapper;
+import by.upmebel.upmecutfile.mapper.PartMapper;
+import by.upmebel.upmecutfile.model.Part;
+import by.upmebel.upmecutfile.repository.HoleRepository;
+import by.upmebel.upmecutfile.service.PartService;
+import by.upmebel.upmecutfile.web.controller.user.swagger.PartApiSwagger;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -28,6 +32,8 @@ import java.util.NoSuchElementException;
 public class PartApi implements PartApiSwagger {
     private final PartService partService;
     private final PartMapper partMapper;
+    private final HoleMapper holeMapper;
+    private final HoleRepository holeRepository;
 
     /**
      * Сохраняет новую деталь в базе данных на основе данных DTO.
@@ -39,9 +45,10 @@ public class PartApi implements PartApiSwagger {
 
     @PostMapping
     public PartDto save(@RequestBody @Valid PartSaveDto dto) {
+        List<HoleDto> holes = new ArrayList<>();
         Part part = partMapper.fromDto(dto);
         Part save = partService.save(part);
-        return partMapper.toDto(save);
+        return partMapper.toDto(save, holes);
     }
 
     /**
@@ -54,10 +61,18 @@ public class PartApi implements PartApiSwagger {
      */
     @GetMapping
     public List<PartDto> getByFilters(@RequestParam(required = false) @Valid Integer id) {
+        List<Part> parts;
         if (id != null) {
-            return partMapper.toDto(Collections.singletonList(partService.findById(id)));
+            parts = Collections.singletonList(partService.findById(id));
+        } else {
+            parts = partService.getAll();
         }
-        return partMapper.toDto(partService.getAll());
+
+        List<List<HoleDto>> holesLists = parts.stream()
+                .map(part -> holeMapper.toDto(holeRepository.findPartHoles(part.getId())))
+                .toList();
+
+        return partMapper.allToDto(parts, holesLists);
     }
 
     /**
@@ -71,9 +86,10 @@ public class PartApi implements PartApiSwagger {
      */
     @PutMapping
     public PartDto update(@RequestBody @Valid PartUpdateDto dto) {
+        List<HoleDto> holes = holeMapper.toDto(holeRepository.findPartHoles(dto.getId()));
         Part part = partMapper.fromDto(dto);
         Part save = partService.update(part);
-        return partMapper.toDto(save);
+        return partMapper.toDto(save, holes);
     }
 
     /**
