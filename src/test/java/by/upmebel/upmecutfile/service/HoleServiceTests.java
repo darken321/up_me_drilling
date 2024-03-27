@@ -26,13 +26,8 @@ public class HoleServiceTests {
     private HoleService holeService;
 
     @Autowired
-    private HoleRepository holeRepository;
-
-    @Autowired
     private PartRepository partRepository;
 
-    @Autowired
-    private PartService partService;
 
     private Part savedPart;
 
@@ -143,6 +138,6 @@ public class HoleServiceTests {
                 .isInstanceOf(NoSuchElementException.class);
     }
 
-    //TODO добавить тесты на  проверку что при изменении размера детали координата отверстия тоже пропорционально меняется
+    //TODO добавить тесты на проверку что при изменении размера детали координата отверстия тоже пропорционально меняется
 
 }
