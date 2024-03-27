@@ -51,15 +51,28 @@ public class Hole {
     @Column(name = "drill_exit_speed")
     double drillExitSpeed;
 
-    @PositiveOrZero(message = "Координата должна быть не отрицательной")
+    @PositiveOrZero(message = "Координата L должна быть не отрицательной")
     @Column(name = "coordinate_l")
     double coordinateL;
 
-    @PositiveOrZero(message = "Координата должна быть не отрицательной")
+    @PositiveOrZero(message = "Координата B должна быть не отрицательной")
     @Column(name = "coordinate_b")
     double coordinateB;
 
-    @PositiveOrZero(message = "Координата должна быть не отрицательной")
+    @PositiveOrZero(message = "Координата H должна быть не отрицательной")
     @Column(name = "coordinate_h")
     double coordinateH;
+
+    public void setCoordinates(Coordinates coordinates) {
+        if (coordinates == null) {
+            throw new IllegalArgumentException("Координаты должны быть не отрицательны");
+        }
+        if (coordinates.getL() < 0 || coordinates.getB() < 0 || coordinates.getH() < 0) {
+            throw new IllegalArgumentException("Координаты должны быть не отрицательны");
+        }
+        this.coordinateL = coordinates.getL();
+        this.coordinateB = coordinates.getB();
+        this.coordinateH = coordinates.getH();
+    }
+
 }
