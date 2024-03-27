@@ -7,7 +7,6 @@ import by.upmebel.upmecutfile.dto.hole.HoleUpdateDto;
 import by.upmebel.upmecutfile.model.Coordinates;
 import by.upmebel.upmecutfile.model.Hole;
 import by.upmebel.upmecutfile.model.Part;
-import by.upmebel.upmecutfile.repository.PartRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,7 +17,6 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class HoleMapper {
-    private final PartRepository partRepository;
 
     public Hole fromDto(HoleUpdateDto dto, Coordinates coordinates, Part part) {
         return Hole.builder()
