@@ -1,13 +1,12 @@
 package by.upmebel.upmecutfile.mapper;
 
 
-import by.upmebel.upmecutfile.model.Coordinates;
-import by.upmebel.upmecutfile.model.Hole;
-import by.upmebel.upmecutfile.model.Part;
-import by.upmebel.upmecutfile.repository.PartRepository;
 import by.upmebel.upmecutfile.dto.hole.HoleDto;
 import by.upmebel.upmecutfile.dto.hole.HoleSaveDto;
 import by.upmebel.upmecutfile.dto.hole.HoleUpdateDto;
+import by.upmebel.upmecutfile.model.Coordinates;
+import by.upmebel.upmecutfile.model.Hole;
+import by.upmebel.upmecutfile.model.Part;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,11 +17,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class HoleMapper {
-    private final PartRepository partRepository;
-
-    public Hole fromDto(HoleUpdateDto dto, Coordinates coordinates) {
-        Part part = partRepository.getReferenceById(dto.getPartId());
-
+    public Hole fromDto(HoleUpdateDto dto, Coordinates coordinates, Part part) {
         return Hole.builder()
                 .id(dto.getId())
                 .part(part)
@@ -36,9 +31,7 @@ public class HoleMapper {
                 .build();
     }
 
-    public Hole fromDto(HoleSaveDto dto, Coordinates coordinates) {
-        Part part = partRepository.getReferenceById(dto.getPartId());
-
+    public Hole fromDto(HoleSaveDto dto, Coordinates coordinates, Part part) {
         return Hole.builder()
                 .part(part)
                 .diameter(dto.getDiameter())
