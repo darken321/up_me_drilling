@@ -35,10 +35,10 @@ public class HoleService {
      * @throws NoSuchElementException если связанная деталь не найдена в базе данных.
      */
     public Hole save(@Valid Hole hole) {
-        if (partRepository.existsById(hole.getPart().getId())) {
+        if (partRepository.existsById(hole.getPart().getPartId())) {
             return holeRepository.save(hole);
         }
-        throw new NoSuchElementException("Детали с id " + hole.getPart().getId() + " нет в базе данных.");
+        throw new NoSuchElementException("Детали с id " + hole.getPart().getPartId() + " нет в базе данных.");
     }
 
     /**
@@ -70,11 +70,11 @@ public class HoleService {
      * @throws NoSuchElementException если связанная деталь или отверстие не найдены в базе данных.
      */
     public Hole update(@Valid Hole hole) {
-        if (!partRepository.existsById(hole.getPart().getId())) {
-            throw new NoSuchElementException("Детали с id " + hole.getPart().getId() + " нет в базе данных.");
+        if (!partRepository.existsById(hole.getPart().getPartId())) {
+            throw new NoSuchElementException("Детали с id " + hole.getPart().getPartId() + " нет в базе данных.");
         } else
-        if (!holeRepository.existsById(hole.getId())) {
-            throw new NoSuchElementException("Отверстия с id " + hole.getId() + " нет в базе данных.");
+        if (!holeRepository.existsById(hole.getHoleId())) {
+            throw new NoSuchElementException("Отверстия с id " + hole.getHoleId() + " нет в базе данных.");
         }
         return holeRepository.save(hole);
     }

@@ -64,11 +64,11 @@ public class HoleServiceTests {
     @Transactional
     void testSaveHole() {
         assertThat(savedHole).isNotNull();
-        assertThat(savedHole.getId()).isGreaterThan(0);
+        assertThat(savedHole.getHoleId()).isGreaterThan(0);
         assertThat(savedHole.getPart()).isEqualTo(part);
         assertThat(savedHole).usingRecursiveComparison().isEqualTo(hole);
 
-        Hole actualDBHole = holeService.findById(hole.getId());
+        Hole actualDBHole = holeService.findById(hole.getHoleId());
         assertThat(actualDBHole).usingRecursiveComparison().isEqualTo(hole);
 
     }
@@ -98,10 +98,10 @@ public class HoleServiceTests {
     @Test
     @Transactional
     void testFindById() {
-        Hole foundHole = holeService.findById(hole.getId());
+        Hole foundHole = holeService.findById(hole.getHoleId());
 
         assertThat(foundHole).isNotNull();
-        assertThat(foundHole.getId()).isEqualTo(hole.getId());
+        assertThat(foundHole.getHoleId()).isEqualTo(hole.getHoleId());
     }
 
     @Test
@@ -115,9 +115,9 @@ public class HoleServiceTests {
     @Test
     @Transactional
     void testDeleteHole() {
-        holeService.delete(hole.getId());
+        holeService.delete(hole.getHoleId());
 
-        assertThatThrownBy(() -> holeService.findById(hole.getId()))
+        assertThatThrownBy(() -> holeService.findById(hole.getHoleId()))
                 .isInstanceOf(NoSuchElementException.class);
     }
 
@@ -132,7 +132,7 @@ public class HoleServiceTests {
     @Test
     @Transactional
     void testUpdateNonExistThrowsException() {
-        Part nonExistentPart = Part.builder().id(Integer.MAX_VALUE).build();
+        Part nonExistentPart = Part.builder().partId(Integer.MAX_VALUE).build();
         hole.setPart(nonExistentPart);
         assertThatThrownBy(() -> holeService.update(hole))
                 .isInstanceOf(NoSuchElementException.class);

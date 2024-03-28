@@ -43,10 +43,10 @@ public class PartServiceTests {
     @Transactional
     void testSavePart() {
 
-        assertThat(savedPart.getId()).isNotNull().isGreaterThan(0);
+        assertThat(savedPart.getPartId()).isNotNull().isGreaterThan(0);
         assertThat(part).usingRecursiveComparison().isEqualTo(savedPart);
 
-        Part actualDBPart = partRepository.findById(savedPart.getId()).orElseThrow();
+        Part actualDBPart = partRepository.findById(savedPart.getPartId()).orElseThrow();
         assertThat(actualDBPart).usingRecursiveComparison().isEqualTo(part);
     }
 
@@ -72,10 +72,10 @@ public class PartServiceTests {
     @Transactional
     void testFindPartById() {
 
-        Part foundPart = partService.findById(part.getId());
+        Part foundPart = partService.findById(part.getPartId());
 
         assertThat(foundPart).isNotNull();
-        assertThat(foundPart.getId()).isEqualTo(part.getId());
+        assertThat(foundPart.getPartId()).isEqualTo(part.getPartId());
     }
 
     @Test
@@ -86,7 +86,7 @@ public class PartServiceTests {
         Part updatedPart = partService.update(savedPart);
 
         assertThat(updatedPart.getL()).isEqualTo(15);
-        Part partFromDb = partService.findById(updatedPart.getId());
+        Part partFromDb = partService.findById(updatedPart.getPartId());
         assertThat(partFromDb).usingRecursiveComparison().isEqualTo(updatedPart);
 
     }
@@ -95,10 +95,10 @@ public class PartServiceTests {
     @Transactional
     void testDelete() {
 
-        partService.delete(part.getId());
+        partService.delete(part.getPartId());
 
         Part finalPart = part;
-        assertThatThrownBy(() -> partService.findById(finalPart.getId()))
+        assertThatThrownBy(() -> partService.findById(finalPart.getPartId()))
                 .isInstanceOf(NoSuchElementException.class);
     }
 
@@ -113,7 +113,7 @@ public class PartServiceTests {
     @Test
     @Transactional
     void testUpdateNonExistThrowsException() {
-        partService.delete(part.getId());
+        partService.delete(part.getPartId());
         part.setL(15);
         assertThatThrownBy(() -> partService.update(part))
                 .isInstanceOf(NoSuchElementException.class);

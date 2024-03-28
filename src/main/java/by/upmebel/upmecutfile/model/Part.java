@@ -31,7 +31,7 @@ public class Part {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    int partId;
 
     @OneToMany(mappedBy = "part", cascade = CascadeType.ALL)
     List<Hole> holes = new ArrayList<>();

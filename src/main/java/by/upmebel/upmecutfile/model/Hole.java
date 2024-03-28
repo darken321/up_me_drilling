@@ -25,7 +25,7 @@ public class Hole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    int holeId;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)

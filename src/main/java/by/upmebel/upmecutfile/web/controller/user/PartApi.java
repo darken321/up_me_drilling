@@ -69,7 +69,7 @@ public class PartApi implements PartApiSwagger {
         }
 
         List<List<HoleDto>> holesLists = parts.stream()
-                .map(part -> holeMapper.toDto(holeRepository.findPartHoles(part.getId())))
+                .map(part -> holeMapper.toDto(holeRepository.findPartHoles(part.getPartId())))
                 .toList();
 
         return partMapper.allToDto(parts, holesLists);

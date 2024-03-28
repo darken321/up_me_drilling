@@ -58,19 +58,17 @@ public class HoleApiIntegrationTest {
         List<SizePattern> bPatterns = new ArrayList<>();
         List<SizePattern> hPatterns = new ArrayList<>();
 
-        HoleSaveDto hole1 = HoleSaveDto.builder()
-                .partId(part.getId())
-                .diameter(5.0)
-                .depth(2.0)
-                .drillEntrySpeed(1500.0)
-                .drillExitSpeed(1500.0)
-                .lPatterns(lPatterns)
-                .bPatterns(bPatterns)
-                .hPatterns(hPatterns)
-                .build();
+        SizePattern lPattern = SizePattern.builder().variable("L").operator("+").value(5.0).build();
+        lPatterns.add(lPattern);
 
-        HoleSaveDto hole2 = HoleSaveDto.builder()
-                .partId(part.getId())
+        SizePattern bPattern = SizePattern.builder().variable("B").operator("+").value(2.0).build();
+        bPatterns.add(bPattern);
+
+        SizePattern hPattern = SizePattern.builder().variable("H").operator("*").value(1.5).build();
+        hPatterns.add(hPattern);
+
+        HoleSaveDto hole1 = HoleSaveDto.builder()
+                .partId(part.getPartId())
                 .diameter(5.0)
                 .depth(2.0)
                 .drillEntrySpeed(1500.0)
@@ -91,7 +89,7 @@ public class HoleApiIntegrationTest {
 
         String hole2Response = mockMvc.perform(post("/api/v1/hole")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(hole2)))
+                        .content(objectMapper.writeValueAsString(hole1)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.holeId").exists())
                 .andReturn().getResponse().getContentAsString();

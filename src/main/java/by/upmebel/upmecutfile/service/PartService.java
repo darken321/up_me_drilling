@@ -71,11 +71,11 @@ public class PartService {
      * @throws NoSuchElementException если деталь не найдена в базе данных.
      */
     public Part update(@Valid Part part) {
-        if (partRepository.existsById(part.getId())) {
+        if (partRepository.existsById(part.getPartId())) {
             saveResizeHoles(part);
             return partRepository.save(part);
         }
-        throw new NoSuchElementException("Детали с id " + part.getId() + " нет в базе данных.");
+        throw new NoSuchElementException("Детали с id " + part.getPartId() + " нет в базе данных.");
     }
 
     /**
@@ -96,8 +96,8 @@ public class PartService {
      * @param part Обновленная сущность детали.
      */
     private void saveResizeHoles(@Valid Part part) {
-        PartSize oldPartSizes = partRepository.getSizesById(part.getId());
-        List<Hole> holes = holeRepository.findPartHoles(part.getId());
+        PartSize oldPartSizes = partRepository.getSizesById(part.getPartId());
+        List<Hole> holes = holeRepository.findPartHoles(part.getPartId());
 
         List<Hole> holeList = new LinkedList<>();
         for (Hole hole : holes) {

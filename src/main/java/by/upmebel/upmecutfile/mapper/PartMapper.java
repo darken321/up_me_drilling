@@ -1,13 +1,13 @@
 package by.upmebel.upmecutfile.mapper;
 
 
-import by.upmebel.upmecutfile.model.Part;
-import by.upmebel.upmecutfile.repository.HoleRepository;
 import by.upmebel.upmecutfile.dto.hole.HoleDto;
 import by.upmebel.upmecutfile.dto.part.PartDto;
 import by.upmebel.upmecutfile.dto.part.PartSaveDto;
 import by.upmebel.upmecutfile.dto.part.PartUpdateDto;
+import by.upmebel.upmecutfile.model.Part;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,21 +18,14 @@ import java.util.List;
 @AllArgsConstructor
 public class PartMapper {
 
+    private final ModelMapper modelMapper;
+
     public Part fromDto(PartSaveDto dto) {
-        return Part.builder()
-                .l(dto.getL())
-                .b(dto.getB())
-                .h(dto.getH())
-                .build();
+        return modelMapper.map(dto, Part.class);
     }
 
     public Part fromDto(PartUpdateDto dto) {
-        return Part.builder()
-                .id(dto.getId())
-                .l(dto.getL())
-                .b(dto.getB())
-                .h(dto.getH())
-                .build();
+        return modelMapper.map(dto, Part.class);
     }
 
     public List<Part> fromDto(List<PartSaveDto> dtoList) {
@@ -43,7 +36,7 @@ public class PartMapper {
 
     public PartDto toDto(Part part, List<HoleDto> holes) {
         return PartDto.builder()
-                .id(part.getId())
+                .id(part.getPartId())
                 .l(part.getL())
                 .b(part.getB())
                 .h(part.getH())
